@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Дмитрий Мамонов](https://up.htmlacademy.ru/ecmascript/7/user/194522).
-* Наставник: `Неизвестно`.
+* Наставник: Александр Быков.
 
 ---
 
