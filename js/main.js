@@ -1,10 +1,8 @@
-`use strict`;
-
 const RIGHT_ARROW_KEY = 39;
 const LEFT_ARROW_KEY = 37;
-const screensTemplatesArray = Array.from(document.querySelectorAll('template'));
+const screensTemplatesArray = Array.from(document.querySelectorAll(`template`));
 const screensQuantity = screensTemplatesArray.length;
-const screenContainerElement = document.querySelector('#main');
+const screenContainerElement = document.querySelector(`#main`);
 const arrowsMarkup = `<div class="arrows__wrap">
   <style>
     .arrows__wrap {
@@ -21,21 +19,21 @@ const arrowsMarkup = `<div class="arrows__wrap">
   </style>
   <button class="arrows__btn"><-</button>
   <button class="arrows__btn">-></button>
-</div>`
+</div>`;
 let currentScreen = 1;
 
 const showScreen = (index) => {
   screenContainerElement.innerHTML = ``;
-  screenContent = screensTemplatesArray[index - 1].content.cloneNode(true);
+  let screenContent = screensTemplatesArray[index - 1].content.cloneNode(true);
   screenContainerElement.appendChild(screenContent);
-}
+};
 
 const insertArrowsHandlers = () => {
   document.body.insertAdjacentHTML(`beforeEnd`, arrowsMarkup);
-  const arrowsButtonsElements = document.querySelectorAll('.arrows__btn');
+  const arrowsButtonsElements = document.querySelectorAll(`.arrows__btn`);
 
   arrowsButtonsElements.forEach((arrowButton) => {
-    arrowButton.addEventListener('click', () => {
+    arrowButton.addEventListener(`click`, () => {
       if (arrowButton.textContent === `->`) {
         currentScreen = currentScreen < screensQuantity ? currentScreen + 1 : 1;
       } else {
@@ -43,9 +41,9 @@ const insertArrowsHandlers = () => {
       }
 
       showScreen(currentScreen);
-    })
+    });
   });
-}
+};
 
 
 showScreen(currentScreen);
@@ -65,5 +63,3 @@ document.addEventListener(`keydown`, (evt) => {
 
   showScreen(currentScreen);
 });
-
-
