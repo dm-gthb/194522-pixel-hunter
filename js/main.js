@@ -19,8 +19,8 @@ const arrowsMarkup = `<div class="arrows__wrap">
       padding: 5px 20px;
     }
   </style>
-  <button class="arrows__btn"><-</button>
-  <button class="arrows__btn">-></button>
+  <button class="arrows__btn arrows__btn--next"><-</button>
+  <button class="arrows__btn arrows__btn--prev">-></button>
 </div>`;
 let currentScreen = 1;
 
@@ -36,9 +36,9 @@ const insertArrowsHandlers = () => {
 
   arrowsButtonsElements.forEach((arrowButton) => {
     arrowButton.addEventListener(`click`, () => {
-      if (arrowButton.textContent === `->`) {
+      if (arrowButton.classList.contains(`arrows__btn--next`)) {
         currentScreen = currentScreen < screensQuantity ? currentScreen + 1 : 1;
-      } else {
+      } else if (arrowButton.classList.contains(`arrows__btn--prev`)) {
         currentScreen = currentScreen > 1 ? currentScreen - 1 : screensQuantity;
       }
 
