@@ -1,5 +1,3 @@
-'use strict';
-
 const RIGHT_ARROW_KEY = 39;
 const LEFT_ARROW_KEY = 37;
 const screensTemplatesArray = Array.from(document.querySelectorAll(`template`));
