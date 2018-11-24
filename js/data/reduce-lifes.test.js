@@ -1,13 +1,5 @@
 import {assert} from 'chai';
-
-const reduceLifes = (currentQuantity) => {
-
-  if (typeof currentQuantity !== `number`) {
-    throw new Error(`currentQuantity should be a number`);
-  }
-
-  return currentQuantity <= 0 ? currentQuantity : currentQuantity - 1;
-};
+import reduceLifes from '../reduce-lifes.js';
 
 describe(`Check lifes reducer`, () => {
   it(`min value should be 0`, () => {
@@ -19,6 +11,6 @@ describe(`Check lifes reducer`, () => {
   });
 
   it(`should not allow set non number value`, () => {
-    assert.throws(() => reduceLifes({}), /currentQuantity should be a number/);
+    assert.throws(() => reduceLifes({}), /currentLifesQuantity should be a number/);
   });
 });
