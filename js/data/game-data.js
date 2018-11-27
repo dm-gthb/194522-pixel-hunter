@@ -1,10 +1,10 @@
-export const initialState = {
+export const initState = {
   question: 0,
   lifes: 3,
   time: 0
 };
 
-export const allGameQuestions = [
+export const gameQuestions = [
   {
     questionType: `1-img`,
     questionText: `Угадай, фото или рисунок?`,
