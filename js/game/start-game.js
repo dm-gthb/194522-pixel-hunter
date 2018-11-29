@@ -60,10 +60,10 @@ const startGame = () => {
 
     formElement.addEventListener(`click`, () => {
       if (isRight()) {
-        results.push(100);
+        results.push(`right`);
         handleNextQuestion();
       } else {
-        results.push(0);
+        results.push(`wrong`);
         if (!stillHaveLifes(game)) {
           showScreen(renderElement(failScreenTemplate(results)));
           return;

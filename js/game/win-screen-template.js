@@ -1,9 +1,10 @@
 const RIGHT_ANSWER_POINTS = 100;
 const REST_LIFE_POINTS = 50;
 
-const winScreenTemplate = (answersArray, lifes) => {
+const winScreenTemplate = (results, lifes) => {
+  const rightAnswersArray = results.filter((result) => result === `right`);
   const pointsByLifes = lifes * REST_LIFE_POINTS;
-  const pointsByRightAnswers = answersArray.length * RIGHT_ANSWER_POINTS;
+  const pointsByRightAnswers = rightAnswersArray.length * RIGHT_ANSWER_POINTS;
 
   let lifesBonusTemplate = ``;
   if (lifes > 0) {
@@ -34,9 +35,16 @@ const winScreenTemplate = (answersArray, lifes) => {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${new Array(answersArray.length)
-              .fill(`<li class="stats__result stats__result--correct"></li>`)
-              .join(``)}
+    ${results.map((result) => {
+    if (result === `right`) {
+      return `<li class="stats__result stats__result--correct"></li>`;
+    } else {
+      return `<li class="stats__result stats__result--wrong"></li>`;
+    }
+  }).join(``)}
+  ${new Array(10 - results.length)
+    .fill(`<li class="stats__result stats__result--unknown"></li>`)
+    .join(``)}
           </ul>
         </td>
         <td class="result__points">× 100</td>

@@ -21,7 +21,7 @@ const failScreenTemplate = (results) => {
         <td colspan="2">
           <ul class="stats">
   ${results.map((result) => {
-    if (result > 0) {
+    if (result === `right`) {
       return `<li class="stats__result stats__result--correct"></li>`;
     } else {
       return `<li class="stats__result stats__result--wrong"></li>`;
