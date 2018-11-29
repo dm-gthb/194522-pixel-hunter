@@ -30,6 +30,7 @@ export const gameQuestions = [
   {
     questionType: `3-img`,
     questionText: `Найдите рисунок среди изображений`,
+    soughtFor: `paint`,
     answers: [
       {
         image: `http://placehold.it/304x455`,
@@ -62,6 +63,7 @@ export const gameQuestions = [
   {
     questionType: `3-img`,
     questionText: `Найдите рисунок среди изображений`,
+    soughtFor: `paint`,
     answers: [
       {
         image: `http://placehold.it/304x455`,
@@ -102,6 +104,7 @@ export const gameQuestions = [
   {
     questionType: `3-img`,
     questionText: `Найдите рисунок среди изображений`,
+    soughtFor: `paint`,
     answers: [
       {
         image: `http://placehold.it/304x455`,
@@ -134,6 +137,7 @@ export const gameQuestions = [
   {
     questionType: `3-img`,
     questionText: `Найдите рисунок среди изображений`,
+    soughtFor: `paint`,
     answers: [
       {
         image: `http://placehold.it/304x455`,

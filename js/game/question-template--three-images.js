@@ -8,7 +8,7 @@ const threeImageGameTemplate = (state) => {
 
   const questionContent = `<form class="game__content  game__content--triple">
     ${question.answers.map((answer, i) =>
-    `<div class="game__option" data-value="paint"><img src="${answer.image}" alt="Option ${i + 1}" width="304" height="455"></div>`).join(``)}
+    `<div class="game__option"><img src="${answer.image}" alt="Option ${i + 1}" width="304" height="455"></div>`).join(``)}
     </form>`;
 
   return `${gameHeaderTemplate(state)}

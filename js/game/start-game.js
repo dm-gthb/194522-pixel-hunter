@@ -21,23 +21,14 @@ const startGame = () => {
   const questionsQantity = gameQuestions.length;
   let currentQuestionNumber = parseInt(game.question, 10);
 
+  let checkIsAnswerRight;
+  let isRight;
+
   const renderGameScreen = (state) => {
     let gameType = gameQuestions[state.question].questionType;
     let currentGameTemplate;
 
-    switch (gameType) {
-      case `1-img`:
-        currentGameTemplate = oneImageGameTemplate(state);
-        break;
-      case `2-img`:
-        currentGameTemplate = twoImageGameTemplate(state);
-        break;
-      case `3-img`:
-        currentGameTemplate = threeImageGameTemplate(state);
-        break;
-    }
-
-    const handleNextQuestion = () => {
+    const continueToNext = () => {
       currentQuestionNumber++;
       if (currentQuestionNumber < questionsQantity) {
         game = changeQuestion(game, currentQuestionNumber);
@@ -47,21 +38,10 @@ const startGame = () => {
       }
     };
 
-    const gameElement = renderElement(currentGameTemplate);
-    screenContainerElement.innerHTML = ``;
-    screenContainerElement.appendChild(gameElement);
-    backButtonHandler();
-
-    const formElement = document.querySelector(`.game__content`);
-
-    const isRight = () => {
-      return Math.random() > 0.5 ? true : false;
-    };
-
-    formElement.addEventListener(`click`, () => {
-      if (isRight()) {
+    const handleAnswer = () => {
+      if (isRight) {
         results.push(`right`);
-        handleNextQuestion();
+        continueToNext();
       } else {
         results.push(`wrong`);
         if (!stillHaveLifes(game)) {
@@ -69,9 +49,85 @@ const startGame = () => {
           return;
         }
         game = reduceLifes(game);
-        handleNextQuestion();
+        continueToNext();
       }
-    });
+    };
+
+    switch (gameType) {
+      case `1-img`:
+        currentGameTemplate = oneImageGameTemplate(state);
+        checkIsAnswerRight = () => {
+          const formElement = document.querySelector(`.game__content`);
+          const options = Array.from(formElement.querySelectorAll(`input`));
+
+          options.forEach((option) => {
+            option.addEventListener(`change`, () => {
+              const selectedOption = option.value;
+              const rightAnswer = gameQuestions[state.question].answer.value;
+              isRight = selectedOption === rightAnswer ? true : false;
+              handleAnswer();
+            });
+          });
+        };
+        break;
+
+      case `2-img`:
+        currentGameTemplate = twoImageGameTemplate(state);
+        checkIsAnswerRight = () => {
+          const formElement = document.querySelector(`.game__content`);
+          const questionsWrappers = Array.from(formElement.querySelectorAll(`.game__option`));
+          const imagesToAnswer = questionsWrappers.length;
+          let answersRightParts = 0;
+
+          questionsWrappers.forEach((wrapper, i) => {
+            const options = wrapper.querySelectorAll(`input[name="question${i + 1}"]`);
+            options.forEach((option) => {
+              option.addEventListener(`change`, () => {
+                if (option.value === gameQuestions[state.question].answers[i].value) {
+                  answersRightParts++;
+                } else {
+                  answersRightParts--;
+                }
+                isRight = answersRightParts === imagesToAnswer ? true : false;
+              });
+            });
+          });
+
+          const formElementChangeHandler = () => {
+            const allOptions = Array.from(formElement.querySelectorAll(`input[type="radio"]`));
+            const answers = allOptions.filter((input) => input.checked);
+            if (answers.length === imagesToAnswer) {
+              handleAnswer();
+            }
+          };
+
+          formElement.addEventListener(`change`, formElementChangeHandler);
+        };
+        break;
+
+      case `3-img`:
+        currentGameTemplate = threeImageGameTemplate(state);
+        checkIsAnswerRight = () => {
+          const options = Array.from(document.querySelectorAll(`.game__option img`));
+          options.forEach((option, i) => {
+            option.addEventListener(`click`, () => {
+              if (gameQuestions[state.question].answers[i].value === gameQuestions[state.question].soughtFor) {
+                isRight = true;
+              } else {
+                isRight = false;
+              }
+              handleAnswer();
+            });
+          });
+        };
+        break;
+    }
+
+    const gameElement = renderElement(currentGameTemplate);
+    screenContainerElement.innerHTML = ``;
+    screenContainerElement.appendChild(gameElement);
+    backButtonHandler();
+    checkIsAnswerRight();
   };
 
   renderGameScreen(game);
