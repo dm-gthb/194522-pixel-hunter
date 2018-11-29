@@ -4,6 +4,6 @@ const timer = (currentSeconds) => {
   }
 
   return currentSeconds > 0 ? currentSeconds - 1 : `time's up!`;
-}
+};
 
 export default timer;

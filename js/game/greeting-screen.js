@@ -1,6 +1,6 @@
-import renderElement from './render-element.js';
-import rulesScreen from './rules.js';
-import showScreen from './show-screen.js';
+import renderElement from '../render-element.js';
+import showScreen from '../show-screen.js';
+import rulesScreen from './rules-screen.js';
 
 const greetingTemplate = `<section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">

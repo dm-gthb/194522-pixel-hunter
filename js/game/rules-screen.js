@@ -1,7 +1,5 @@
-import renderElement from './render-element.js';
-import showScreen from './show-screen.js';
-import renderGameScreen from './game/render-game-screen.js';
-import {initState} from './data/game-data.js';
+import renderElement from '../render-element.js';
+import startGame from './start-game.js';
 
 const rulesTemplate = `<header class="header">
     <button class="back">
@@ -42,8 +40,7 @@ formElement.addEventListener(`input`, () => {
 
 formElement.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
-  renderGameScreen(initState);
-  console.log(initState);
+  startGame();
 });
 
 export default rulesScreen;
