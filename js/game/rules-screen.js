@@ -1,6 +1,5 @@
-import renderElement from './render-element.js';
-import showScreen from './show-screen.js';
-import firstGameScreen from './game-1.js';
+import renderElement from '../render-element.js';
+import startGame from './start-game.js';
 
 const rulesTemplate = `<header class="header">
     <button class="back">
@@ -39,6 +38,9 @@ formElement.addEventListener(`input`, () => {
   nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
 });
 
-formElement.addEventListener(`submit`, () => showScreen(firstGameScreen));
+formElement.addEventListener(`submit`, (evt) => {
+  evt.preventDefault();
+  startGame();
+});
 
 export default rulesScreen;
