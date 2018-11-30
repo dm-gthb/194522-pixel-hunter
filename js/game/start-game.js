@@ -64,7 +64,7 @@ const startGame = () => {
             option.addEventListener(`change`, () => {
               const selectedOption = option.value;
               const rightAnswer = gameQuestions[state.question].answer.value;
-              isRight = selectedOption === rightAnswer ? true : false;
+              isRight = selectedOption === rightAnswer;
               handleAnswer();
             });
           });
@@ -83,12 +83,8 @@ const startGame = () => {
             const options = wrapper.querySelectorAll(`input[name="question${i + 1}"]`);
             options.forEach((option) => {
               option.addEventListener(`change`, () => {
-                if (option.value === gameQuestions[state.question].answers[i].value) {
-                  answersRightParts++;
-                } else {
-                  answersRightParts--;
-                }
-                isRight = answersRightParts === imagesToAnswer ? true : false;
+                option.value === gameQuestions[state.question].answers[i].value ? answersRightParts++ : answersRightParts--;
+                isRight = answersRightParts === imagesToAnswer;
               });
             });
           });
@@ -111,11 +107,7 @@ const startGame = () => {
           const options = Array.from(document.querySelectorAll(`.game__option img`));
           options.forEach((option, i) => {
             option.addEventListener(`click`, () => {
-              if (gameQuestions[state.question].answers[i].value === gameQuestions[state.question].soughtFor) {
-                isRight = true;
-              } else {
-                isRight = false;
-              }
+              isRight = gameQuestions[state.question].answers[i].value === gameQuestions[state.question].soughtFor;
               handleAnswer();
             });
           });
