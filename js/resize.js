@@ -1,5 +1,5 @@
-var resize = (container, image) => {
-  var initImgRatio = image.width / image.height;
+const resize = (container, image) => {
+  const initImgRatio = image.width / image.height;
 
   if (image.width > container.width && (image.width - container.width) > (image.height - container.height)) {
     // img > container, width to fix
@@ -23,7 +23,7 @@ var resize = (container, image) => {
     image.width = image.height * initImgRatio;
   }
 
-  var newDimensions = Object.assign({}, image);
+  const newDimensions = Object.assign({}, image);
   return newDimensions;
 };
 
