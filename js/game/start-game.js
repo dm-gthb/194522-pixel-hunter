@@ -83,7 +83,11 @@ const startGame = () => {
             const options = wrapper.querySelectorAll(`input[name="question${i + 1}"]`);
             options.forEach((option) => {
               option.addEventListener(`change`, () => {
-                option.value === gameQuestions[state.question].answers[i].value ? answersRightParts++ : answersRightParts--;
+                if (option.value === gameQuestions[state.question].answers[i].value) {
+                  answersRightParts++;
+                } else {
+                  answersRightParts--;
+                }
                 isRight = answersRightParts === imagesToAnswer;
               });
             });
