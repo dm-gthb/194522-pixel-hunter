@@ -1,26 +1,23 @@
 const resize = (container, image) => {
   const initImgRatio = image.width / image.height;
+  const imageIsWider = image.width > container.width;
+  const imageVsContainerWidth = image.width - container.width;
+  const imageVsContainerHeight = image.height - container.height;
+  const imageIsHigher = image.height > container.height;
+  const containerIsHigher = container.height > image.height;
 
-  if (image.width > container.width && (image.width - container.width) > (image.height - container.height)) {
-    // img > container, width to fix
+  if (imageIsWider && (imageVsContainerWidth) > (imageVsContainerHeight)) {
     image.width = container.width;
     image.height = image.width / initImgRatio;
-  } else if (image.width > container.width && (image.width - container.width) < (image.height - container.height)) {
-    // img > container, height to fix
+  } else if (imageIsWider && (imageVsContainerWidth) < (imageVsContainerHeight)) {
     image.height = container.height;
     image.width = image.height * initImgRatio;
-  } else if (image.height > container.height) {
-    // img > container, height to fix
+  } else if (imageIsHigher) {
     image.height = container.height;
     image.width = image.height * initImgRatio;
-  } else if (image.height < container.height && (container.heigh - image.heigh) > (container.width - image.width)) {
-    // img < container, width to fix
+  } else if (containerIsHigher) {
     image.width = container.width;
     image.height = image.width / initImgRatio;
-  } else if (image.height < container.height && (container.heigh - image.heigh) < (container.width - image.width)) {
-    // img < container, height to fix
-    image.height = container.height;
-    image.width = image.height * initImgRatio;
   }
 
   const newDimensions = Object.assign({}, image);
