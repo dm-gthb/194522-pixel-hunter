@@ -18,7 +18,9 @@ const backButtonHandler = () => {
 
     introScreen.onClick = () => showScreen(greetingScreen.element);
     greetingScreen.onClick = () => showScreen(rulesScreen.element);
-    rulesScreen.onInput = (inputElement, nextScreenButtonElement) => nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
+    rulesScreen.onInput = (inputElement, nextScreenButtonElement) => {
+      nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
+    };
 
     rulesScreen.onSubmit = (evt) => {
       evt.preventDefault();
