@@ -1,8 +1,12 @@
-import renderElement from '../render-element.js';
-import showScreen from '../show-screen.js';
-import rulesScreen from './rules-screen.js';
+import AbstractView from './abstract-view.js';
 
-const greetingTemplate = `<section class="greeting central--blur">
+export default class GreetingScreenView extends AbstractView {
+  constructor() {
+    super();
+  }
+
+  get template() {
+    return `<section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
     <div class="greeting__challenge">
@@ -22,10 +26,12 @@ const greetingTemplate = `<section class="greeting central--blur">
       </svg>
     </button>
   </section>`;
+  }
 
-const greetingScreen = renderElement(greetingTemplate);
-const nextScreenButtonElement = greetingScreen.querySelector(`.greeting__continue`);
+  onClick() {}
 
-nextScreenButtonElement.addEventListener(`click`, () => showScreen(rulesScreen));
-
-export default greetingScreen;
+  bind() {
+    const nextScreenButtonElement = this.element.querySelector(`.greeting__continue`);
+    nextScreenButtonElement.addEventListener(`click`, () => this.onClick());
+  }
+}

@@ -1,9 +1,17 @@
-import {gameQuestions} from '../data/game-data.js';
+import AbstractView from './abstract-view.js';
+import ResultsChartView from './results-chart-view.js';
 
-const questionsQuantity = gameQuestions.length;
+export default class FailScreenView extends AbstractView {
+  constructor(results, questionsQuantity) {
+    super();
+    this.results = results;
+    this.questionsQuantity = questionsQuantity;
+  }
 
-const failScreenTemplate = (results) => {
-  return `<header class="header">
+  get template() {
+    const resultsChartView = new ResultsChartView(this.results, this.questionsQuantity);
+    const resultsChartTemplate = resultsChartView.template;
+    return `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -19,24 +27,12 @@ const failScreenTemplate = (results) => {
       <tr>
         <td class="result__number">1.</td>
         <td colspan="2">
-          <ul class="stats">
-  ${results.map((result) => {
-    if (result === `right`) {
-      return `<li class="stats__result stats__result--correct"></li>`;
-    } else {
-      return `<li class="stats__result stats__result--wrong"></li>`;
-    }
-  }).join(``)}
-  ${new Array(questionsQuantity - results.length)
-    .fill(`<li class="stats__result stats__result--unknown"></li>`)
-    .join(``)}
-          </ul>
+          ${resultsChartTemplate}
         </td>
         <td class="result__total"></td>
         <td class="result__total  result__total--final">fail</td>
       </tr>
     </table>
   </section>`;
-};
-
-export default failScreenTemplate;
+  }
+}
