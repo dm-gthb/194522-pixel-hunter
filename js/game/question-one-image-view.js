@@ -7,7 +7,9 @@ export default class QuestionOneImageView extends AbstractView {
   }
 
   get template() {
-    return `<form class="game__content  game__content--wide">
+    return `<section class="game">
+      <p class="game__task">${this.question.questionText}</p>
+      <form class="game__content  game__content--wide">
         <div class="game__option">
           <img src="${this.question.answer.image}" alt="Option 1" width="705" height="455">
           <label class="game__answer  game__answer--photo">
@@ -19,7 +21,8 @@ export default class QuestionOneImageView extends AbstractView {
             <span>Рисунок</span>
           </label>
         </div>
-        </form>`;
+      </form>
+    </section>`;
   }
 
   handleAnswer() {}
