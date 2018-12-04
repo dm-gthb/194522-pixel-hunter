@@ -1,4 +1,4 @@
-import AbstractView from './abstract-view.js';
+import AbstractView from './abstract.js';
 
 export default class QuestionThreeImagesView extends AbstractView {
   constructor(question) {

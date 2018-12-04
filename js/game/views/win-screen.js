@@ -1,5 +1,5 @@
-import AbstractView from './abstract-view.js';
-import ResultsChartView from './results-chart-view.js';
+import AbstractView from './abstract.js';
+import resultsChartTemplate from '../templates/results-chart.js';
 
 export default class WinScreenView extends AbstractView {
   constructor(results, lifes, questionsQuantity) {
@@ -12,8 +12,7 @@ export default class WinScreenView extends AbstractView {
   get template() {
     const RIGHT_ANSWER_POINTS = 100;
     const REST_LIFE_POINTS = 50;
-    const resultsChartView = new ResultsChartView(this.results, this.questionsQuantity);
-    const resultsChartTemplate = resultsChartView.template;
+    const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
     const rightAnswersArray = this.results.filter((result) => result === `right`);
     const pointsByLifes = this.lifes * REST_LIFE_POINTS;
     const pointsByRightAnswers = rightAnswersArray.length * RIGHT_ANSWER_POINTS;
@@ -46,7 +45,7 @@ export default class WinScreenView extends AbstractView {
         <tr>
           <td class="result__number">1.</td>
           <td colspan="2">
-            ${resultsChartTemplate}
+            ${resultsChart}
           </td>
           <td class="result__points">× 100</td>
           <td class="result__total">${pointsByRightAnswers}</td>

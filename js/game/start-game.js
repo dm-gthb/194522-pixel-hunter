@@ -1,18 +1,19 @@
 import {INIT_GAME} from '../data/game-data.js';
 import {gameQuestions} from '../data/game-data.js';
-import GameHeaderView from './game-header-view.js';
-import QuestionOneImageView from './question-one-image-view.js';
-import QuestionTwoImagesView from './question-two-images-view.js';
-import QuestionThreeImagesView from './question-three-images-view.js';
-import backButtonHandler from '../back-button-handler.js';
-import showScreen from '../show-screen.js';
+import renderElement from '../render-element.js';
+import backButtonHandler from './back-button-handler.js';
+import showScreen from './show-screen.js';
 import {changeQuestion} from './utils.js';
 import {stillHaveLifes} from './utils.js';
 import {reduceLifes} from './utils.js';
 import results from './results.js';
-import ResultsChartView from './results-chart-view.js';
-import WinScreenView from './win-screen-view.js';
-import FailScreenView from './fail-screen-view.js';
+import gameHeaderTemplate from './templates/game-header.js';
+import resultsChartTemplate from './templates/results-chart.js';
+import QuestionOneImageView from './views/question-one-image.js';
+import QuestionTwoImagesView from './views/question-two-images.js';
+import QuestionThreeImagesView from './views/question-three-images.js';
+import WinScreenView from './views/win-screen.js';
+import FailScreenView from './views/fail-screen.js';
 
 const screenContainerElement = document.querySelector(`#main`);
 
@@ -21,8 +22,6 @@ const renderGameScreen = (state) => {
   let currentQuestionNumber = parseInt(game.question, 10);
   let gameType = gameQuestions[state.question].questionType;
   let questionView;
-  const gameHeaderView = new GameHeaderView(state);
-  const resultsView = new ResultsChartView(results, questionsQantity);
   const winScreen = new WinScreenView(results, game.lifes, questionsQantity);
   const failScreen = new FailScreenView(results, questionsQantity);
 
@@ -68,17 +67,17 @@ const renderGameScreen = (state) => {
   screenContainerElement.innerHTML = ``;
   questionView.handleAnswer = (isRightAnswer) => handleAnswer(isRightAnswer);
 
-  screenContainerElement.appendChild(gameHeaderView.element);
+  screenContainerElement.appendChild(renderElement(gameHeaderTemplate(state)));
   screenContainerElement.appendChild(questionView.element);
-  screenContainerElement.appendChild(resultsView.element);
+  screenContainerElement.appendChild(renderElement(resultsChartTemplate(results, questionsQantity)));
   backButtonHandler();
 };
 
 let game;
 
-const startGameUp1 = () => {
+const startGame = () => {
   game = Object.assign({}, INIT_GAME);
   renderGameScreen(game);
 };
 
-export default startGameUp1;
+export default startGame;

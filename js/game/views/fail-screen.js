@@ -1,5 +1,5 @@
-import AbstractView from './abstract-view.js';
-import ResultsChartView from './results-chart-view.js';
+import AbstractView from './abstract.js';
+import resultsChartTemplate from '../templates/results-chart.js';
 
 export default class FailScreenView extends AbstractView {
   constructor(results, questionsQuantity) {
@@ -9,8 +9,7 @@ export default class FailScreenView extends AbstractView {
   }
 
   get template() {
-    const resultsChartView = new ResultsChartView(this.results, this.questionsQuantity);
-    const resultsChartTemplate = resultsChartView.template;
+    const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
     return `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -27,7 +26,7 @@ export default class FailScreenView extends AbstractView {
       <tr>
         <td class="result__number">1.</td>
         <td colspan="2">
-          ${resultsChartTemplate}
+          ${resultsChart}
         </td>
         <td class="result__total"></td>
         <td class="result__total  result__total--final">fail</td>
