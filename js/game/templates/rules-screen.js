@@ -1,12 +1,7 @@
-import AbstractView from './abstract.js';
+import {renderElement} from '../utils.js';
+import startGame from '../start-game.js';
 
-export default class RulesScreenView extends AbstractView {
-  constructor() {
-    super();
-  }
-
-  get template() {
-    return `<header class="header">
+const rulesTemplate = `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -33,17 +28,19 @@ export default class RulesScreenView extends AbstractView {
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </section>`;
-  }
 
-  onInput() {}
-  onSubmit() {}
+const rulesScreen = renderElement(rulesTemplate);
+const formElement = rulesScreen.querySelector(`.rules__form`);
+const inputElement = formElement.querySelector(`.rules__input`);
+const nextScreenButtonElement = formElement.querySelector(`.rules__button`);
 
-  bind() {
-    const formElement = this.element.querySelector(`.rules__form`);
-    const inputElement = formElement.querySelector(`.rules__input`);
-    const nextScreenButtonElement = formElement.querySelector(`.rules__button`);
+formElement.addEventListener(`input`, () => {
+  nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
+});
 
-    formElement.addEventListener(`input`, () => this.onInput(inputElement, nextScreenButtonElement));
-    formElement.addEventListener(`submit`, (evt) => this.onSubmit(evt));
-  }
-}
+formElement.addEventListener(`submit`, (evt) => {
+  evt.preventDefault();
+  startGame();
+});
+
+export default rulesScreen;
