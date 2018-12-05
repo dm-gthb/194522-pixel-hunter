@@ -8,7 +8,6 @@ import {stillHaveLifes} from './utils.js';
 import {reduceLifes} from './utils.js';
 import results from './results.js';
 import gameHeaderTemplate from './templates/game-header.js';
-import resultsChartTemplate from './templates/results-chart.js';
 import QuestionOneImageView from './views/question-one-image.js';
 import QuestionTwoImagesView from './views/question-two-images.js';
 import QuestionThreeImagesView from './views/question-three-images.js';
@@ -52,15 +51,15 @@ const renderGameScreen = (state) => {
 
   switch (gameType) {
     case `1-img`:
-      questionView = new QuestionOneImageView(gameQuestions[state.question]);
+      questionView = new QuestionOneImageView(gameQuestions[state.question], results, questionsQantity);
       break;
 
     case `2-img`:
-      questionView = new QuestionTwoImagesView(gameQuestions[state.question]);
+      questionView = new QuestionTwoImagesView(gameQuestions[state.question], results, questionsQantity);
       break;
 
     case `3-img`:
-      questionView = new QuestionThreeImagesView(gameQuestions[state.question]);
+      questionView = new QuestionThreeImagesView(gameQuestions[state.question], results, questionsQantity);
       break;
   }
 
@@ -69,7 +68,6 @@ const renderGameScreen = (state) => {
 
   screenContainerElement.appendChild(renderElement(gameHeaderTemplate(state)));
   screenContainerElement.appendChild(questionView.element);
-  screenContainerElement.appendChild(renderElement(resultsChartTemplate(results, questionsQantity)));
   backButtonHandler();
 };
 
