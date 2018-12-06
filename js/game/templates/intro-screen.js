@@ -1,4 +1,4 @@
-import renderElement from '../render-element.js';
+import {renderElement} from '../utils.js';
 import showScreen from '../show-screen.js';
 import greetingScreen from './greeting-screen.js';
 

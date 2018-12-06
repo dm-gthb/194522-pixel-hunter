@@ -22,3 +22,9 @@ export const changeQuestion = (game, question) => {
   const newGame = Object.assign({}, game, {question});
   return newGame;
 };
+
+export const renderElement = (template = ``, tagName = `div`) => {
+  const wrapper = document.createElement(tagName);
+  wrapper.innerHTML = template.trim();
+  return wrapper;
+};

@@ -1,5 +1,5 @@
-import renderElement from '../render-element.js';
-import startGame from './start-game.js';
+import {renderElement} from '../utils.js';
+import startGame from '../start-game.js';
 
 const rulesTemplate = `<header class="header">
     <button class="back">

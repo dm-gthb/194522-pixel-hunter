@@ -1,4 +1,4 @@
-import introScreen from './game/intro-screen.js';
-import showScreen from './show-screen.js';
+import introScreen from './game/templates/intro-screen.js';
+import showScreen from './game/show-screen.js';
 
 showScreen(introScreen);
