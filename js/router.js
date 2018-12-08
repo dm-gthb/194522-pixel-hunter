@@ -3,7 +3,7 @@ import GreetingScreen from './welcome/greeting-screen.js';
 import RulesScreen from './welcome/rules-screen.js';
 import GameScreen from './game/game-screen.js';
 import GameModel from './data/game-model.js';
-// import StatsScreen from './stats/stats.js';
+import StatsScreen from './stats/stats-screen.js';
 
 const main = document.querySelector(`#main`);
 const changeView = (element) => {
@@ -34,8 +34,8 @@ export default class Router {
     gamePresenter.startGame();
   }
 
-  // static showStats(model) {
-  //   const statistics = new StatsScreen(model);
-  //   changeView(statistics.element);
-  // }
+  static showStats(isWin, model) {
+    const statistics = new StatsScreen(isWin, model);
+    changeView(statistics.element);
+  }
 }

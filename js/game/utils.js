@@ -1,3 +1,7 @@
+const RIGHT_ANSWER_POINTS = 100;
+const REST_LIFE_POINTS = 50;
+const ONE_OUESTION_TIME = 30;
+
 export const stillHaveLifes = (state) => state.lifes - 1 > 0;
 
 export const reduceLifes = (state) => {
@@ -41,7 +45,6 @@ export const tick = (state) => {
 };
 
 export const restartTimer = (state) => {
-  const ONE_OUESTION_TIME = 30;
   const newState = Object.assign({}, state, {
     time: ONE_OUESTION_TIME
   });
@@ -74,4 +77,18 @@ export const resize = (container, image) => {
 
   const newDimensions = Object.assign({}, image);
   return newDimensions;
+};
+
+export const countPoints = (results, lifes) => {
+  const rightAnswersArray = results.filter((result) => result === `right`);
+  const pointsByLifes = lifes * REST_LIFE_POINTS;
+  const pointsByRightAnswers = rightAnswersArray.length * RIGHT_ANSWER_POINTS;
+  const total = pointsByLifes + pointsByRightAnswers;
+  const points = {
+    pointsByLifes,
+    pointsByRightAnswers,
+    total
+  };
+
+  return Object.assign({}, points);
 };

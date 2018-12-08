@@ -1,7 +1,6 @@
 import HeaderView from './views/header.js';
 import QuestionView from './views/question.js';
-import WinScreenView from './views/win-screen.js';
-import FailScreenView from './views/fail-screen.js';
+import Router from '../router.js';
 
 export default class GamePresenter {
   constructor(model) {
@@ -35,27 +34,21 @@ export default class GamePresenter {
 
   answer(answerResult) {
     this.stopTimer();
+
     if (answerResult) {
       this.model.addAnswer(`right`);
-      if (this.model.hasNextQuestion()) {
-        this.model.nextQuestion();
-        this.startGame();
-      } else {
-        this.endGame(true);
-      }
     } else {
       this.model.addAnswer(`wrong`);
       if (!this.model.hasLifes()) {
-        this.endGame(false);
-      } else {
-        if (!this.model.hasNextQuestion()) {
-          this.endGame(true);
-        } else {
-          this.model.reduceLifes();
-          this.model.nextQuestion();
-          this.startGame();
-        }
+        return this.endGame(false);
       }
+      this.model.reduceLifes();
+    }
+    if (this.model.hasNextQuestion()) {
+      this.model.nextQuestion();
+      this.startGame();
+    } else {
+      this.endGame(true);
     }
   }
 
@@ -77,10 +70,7 @@ export default class GamePresenter {
   }
 
   endGame(isWin) {
-    this.updateHeader();
-    let gameOver;
-    gameOver = isWin ? new WinScreenView(this.model._results, this.model.state.lifes, this.model.getQuestionsQuantity()) : new FailScreenView(this.model._results, this.model.getQuestionsQuantity());
-    this.changeContentView(gameOver);
+    Router.showStats(isWin, this.model);
   }
 
   changeContentView(view) {
