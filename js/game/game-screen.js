@@ -22,6 +22,7 @@ export default class GamePresenter {
   startGame() {
     this.model.restartTimer();
     this.changeQuestion();
+    this.header.onBackButtonClick = () => Router.showGreeting();
     this._timer = setInterval(() => {
       this.model.tick();
       this.updateTimeDisplay(this.model.state.time);

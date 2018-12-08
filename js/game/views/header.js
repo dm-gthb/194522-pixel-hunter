@@ -33,4 +33,11 @@ export default class HeaderView extends AbstractView {
     const timeDisplay = this.element.querySelector(`.game__timer`);
     timeDisplay.textContent = seconds;
   }
+
+  onBackButtonClick() {}
+
+  bind() {
+    const backButtonElement = this.element.querySelector(`.back`);
+    backButtonElement.addEventListener('click', () => this.onBackButtonClick());
+  }
 }
