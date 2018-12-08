@@ -1,5 +1,6 @@
 import AbstractView from './abstract.js';
 import resultsChartTemplate from '../templates/results-chart.js';
+import {debug} from '../../settings.js';
 
 export default class QuestionTwoImagesView extends AbstractView {
   constructor(question, results, questionsQuantity) {
@@ -17,11 +18,11 @@ export default class QuestionTwoImagesView extends AbstractView {
     ${this.question.answers.map((answer, i) =>
     `<div class="game__option">
       <img src="${answer.image}" alt="Option ${i + 1}" width="468" height="458">
-      <label class="game__answer game__answer--photo">
+      <label class="game__answer game__answer--photo" ${debug.enable && this.question.answers[0].value === `photo` ? debug.styleRight : debug.styleWrong}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
         <span>Фото</span>
       </label>
-      <label class="game__answer game__answer--paint">
+      <label class="game__answer game__answer--paint" ${debug.enable && this.question.answers[1].value === `photo` ? debug.styleWrong : debug.styleRight}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="paint">
         <span>Рисунок</span>
       </label>
