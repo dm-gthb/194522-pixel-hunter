@@ -46,9 +46,9 @@ export default class GamePresenter {
     }
     if (this.model.hasNextQuestion()) {
       this.model.nextQuestion();
-      this.startGame();
+      return this.startGame();
     } else {
-      this.endGame(true);
+      return this.endGame(true);
     }
   }
 
