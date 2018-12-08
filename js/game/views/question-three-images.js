@@ -21,14 +21,14 @@ export default class QuestionThreeImagesView extends AbstractView {
 </section>`;
   }
 
-  handleAnswer() {}
+  onAnswer() {}
 
   bind() {
     const options = Array.from(this.element.querySelectorAll(`.game__option img`));
     options.forEach((option, i) => {
       option.addEventListener(`click`, () => {
         let isAnswerRight = this.question.answers[i].value === this.question.soughtFor;
-        this.handleAnswer(isAnswerRight);
+        this.onAnswer(isAnswerRight);
       });
     });
   }

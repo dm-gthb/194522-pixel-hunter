@@ -30,7 +30,7 @@ export default class QuestionOneImageView extends AbstractView {
     </section>`;
   }
 
-  handleAnswer() {}
+  onAnswer() {}
 
   bind() {
     const formElement = this.element.querySelector(`.game__content`);
@@ -40,7 +40,7 @@ export default class QuestionOneImageView extends AbstractView {
         const selectedOption = option.value;
         const rightAnswer = this.question.answer.value;
         const isAnswerRight = selectedOption === rightAnswer;
-        this.handleAnswer(isAnswerRight);
+        this.onAnswer(isAnswerRight);
       });
     });
   }

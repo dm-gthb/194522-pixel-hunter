@@ -1,4 +1,3 @@
-import introScreen from './game/templates/intro-screen.js';
-import showScreen from './game/show-screen.js';
+import Router from './router.js';
 
-showScreen(introScreen);
+Router.showIntro();

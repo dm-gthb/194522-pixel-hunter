@@ -1,7 +1,7 @@
 export const INIT_GAME = Object.freeze({
   question: 0,
   lifes: 3,
-  time: 0
+  time: 30
 });
 
 export const gameQuestions = [

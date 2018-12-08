@@ -31,7 +31,7 @@ export default class QuestionTwoImagesView extends AbstractView {
 </section>`;
   }
 
-  handleAnswer() {}
+  onAnswer() {}
 
   bind() {
     const formElement = this.element.querySelector(`.game__content`);
@@ -58,7 +58,7 @@ export default class QuestionTwoImagesView extends AbstractView {
       const allOptions = Array.from(formElement.querySelectorAll(`input[type="radio"]`));
       const answers = allOptions.filter((input) => input.checked);
       if (answers.length === imagesToAnswer) {
-        this.handleAnswer(isAnswerRight);
+        this.onAnswer(isAnswerRight);
       }
     };
 
