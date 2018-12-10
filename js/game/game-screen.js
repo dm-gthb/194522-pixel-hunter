@@ -2,7 +2,9 @@ import HeaderView from './views/header.js';
 import QuestionView from './views/question.js';
 import Router from '../router.js';
 
-export default class GamePresenter {
+const ONE_SECOND = 1000;
+
+export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
@@ -26,7 +28,7 @@ export default class GamePresenter {
     this._timer = setInterval(() => {
       this.model.tick();
       this.updateTimeDisplay(this.model.state.time);
-    }, 1000);
+    }, ONE_SECOND);
   }
 
   stopTimer() {
