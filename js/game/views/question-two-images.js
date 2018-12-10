@@ -13,16 +13,16 @@ export default class QuestionTwoImagesView extends AbstractView {
   get template() {
     const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
     return `<section class="game">
-  <p class="game__task">${this.question.questionText}</p>
+  <p class="game__task">${this.question.question}</p>
   <form class="game__content">
     ${this.question.answers.map((answer, i) =>
     `<div class="game__option">
-      <img src="${answer.image}" alt="Option ${i + 1}" width="468" height="458">
-      <label class="game__answer game__answer--photo" ${debug.enable && this.question.answers[0].value === `photo` ? debug.styleRight : ``}>
+      <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}">
+      <label class="game__answer game__answer--photo" ${debug.enable && answer.type === `photo` ? debug.styleRight : ``}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
         <span>Фото</span>
       </label>
-      <label class="game__answer game__answer--paint" ${debug.enable && this.question.answers[1].value === `photo` ? debug.styleWrong : ``}>
+      <label class="game__answer game__answer--paint" ${debug.enable && answer.type === `paint` ? debug.styleRight : ``}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="paint">
         <span>Рисунок</span>
       </label>
@@ -45,7 +45,7 @@ export default class QuestionTwoImagesView extends AbstractView {
       const options = wrapper.querySelectorAll(`input[name="question${i + 1}"]`);
       options.forEach((option) => {
         option.addEventListener(`change`, () => {
-          if (option.value === this.question.answers[i].value) {
+          if (option.value === this.question.answers[i].type) {
             answersRightParts++;
           } else {
             answersRightParts--;

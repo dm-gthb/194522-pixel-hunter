@@ -15,16 +15,16 @@ export default class QuestionView extends AbstractView {
   onAnswer() {}
 
   get element() {
-    switch (this.question.questionType) {
-      case `1-img`:
+    switch (this.question.type) {
+      case `tinder-like`:
         this.view = new QuestionOneImageView(this.question, this.results, this.questionsQuantity);
         break;
 
-      case `2-img`:
+      case `two-of-two`:
         this.view = new QuestionTwoImagesView(this.question, this.results, this.questionsQuantity);
         break;
 
-      case `3-img`:
+      case `one-of-three`:
         this.view = new QuestionThreeImagesView(this.question, this.results, this.questionsQuantity);
         break;
     }

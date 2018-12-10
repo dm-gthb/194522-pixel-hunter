@@ -1,16 +1,14 @@
-import {gameQuestions} from './game-data.js';
 import {INIT_GAME} from './game-data.js';
 import {changeQuestion} from '../game/utils.js';
 import {tick} from '../game/utils.js';
 import {reduceLifes} from '../game/utils.js';
 import {restartTimer} from '../game/utils.js';
 
-const questionsQuantity = gameQuestions.length;
-const getQuestion = (state) => gameQuestions[state.question];
 const getQuestionNumber = (state) => parseInt(state.question, 10);
 
 export default class GameModel {
-  constructor(playerName) {
+  constructor(data, playerName) {
+    this.data = data;
     this.playerName = playerName;
     this.restart();
     this._results = [];
@@ -25,7 +23,7 @@ export default class GameModel {
   }
 
   hasNextQuestion() {
-    return getQuestionNumber(this._state) + 1 < questionsQuantity;
+    return getQuestionNumber(this._state) + 1 < this.data.length;
   }
 
   hasLifes() {
@@ -33,11 +31,11 @@ export default class GameModel {
   }
 
   getQuestionsQuantity() {
-    return questionsQuantity;
+    return this.data.length;
   }
 
   getCurrentQuestion() {
-    return getQuestion(this._state);
+    return this.data[this._state.question];
   }
 
   restartTimer() {
