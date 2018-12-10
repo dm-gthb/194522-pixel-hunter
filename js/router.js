@@ -13,12 +13,12 @@ const changeView = (element) => {
   main.appendChild(element);
 };
 
-let questData;
+let gameData;
 
 export default class Router {
   static start() {
     Loader.loadData().
-      then((data) => questData = data).
+      then((data) => gameData = data).
       then(() => Router.showIntro()).
       catch(Router.showError)
   }
@@ -39,9 +39,9 @@ export default class Router {
   }
 
   static showGame(playerName) {
-    const gamePresenter = new GameScreen(new GameModel(questData, playerName));
-    changeView(gamePresenter.element);
-    gamePresenter.startGame();
+    const gameScreen = new GameScreen(new GameModel(gameData, playerName));
+    changeView(gameScreen.element);
+    gameScreen.startGame();
   }
 
   static showStats(isWin, model) {
