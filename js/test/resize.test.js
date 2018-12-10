@@ -1,5 +1,5 @@
 import assert from 'assert';
-import resize from '../resize.js';
+import {resize} from '../game/utils.js';
 
 const createTestForFrame = (frame) => {
   const assertRatio = (given, expected) => {

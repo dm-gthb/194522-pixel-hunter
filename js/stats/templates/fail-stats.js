@@ -1,16 +1,8 @@
-import AbstractView from './abstract.js';
-import resultsChartTemplate from '../templates/results-chart.js';
+import resultsChartTemplate from '../../game/templates/results-chart.js';
 
-export default class FailScreenView extends AbstractView {
-  constructor(results, questionsQuantity) {
-    super();
-    this.results = results;
-    this.questionsQuantity = questionsQuantity;
-  }
-
-  get template() {
-    const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
-    return `<header class="header">
+const failStatsTemplate = (results, questionsQuantity) => {
+  const resultsChart = resultsChartTemplate(results, questionsQuantity);
+  return `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -31,7 +23,7 @@ export default class FailScreenView extends AbstractView {
         <td class="result__total"></td>
         <td class="result__total  result__total--final">fail</td>
       </tr>
-    </table>
-  </section>`;
-  }
+    </table>`
 }
+
+export default failStatsTemplate;
