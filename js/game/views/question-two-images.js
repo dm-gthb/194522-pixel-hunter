@@ -22,8 +22,8 @@ export default class QuestionTwoImagesView extends AbstractView {
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
         <span>Фото</span>
       </label>
-      <label class="game__answer game__answer--paint" ${debug.enable && answer.type === `paint` ? debug.styleRight : ``}>
-        <input class="visually-hidden" name="question${i + 1}" type="radio" value="paint">
+      <label class="game__answer game__answer--paint" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}>
+        <input class="visually-hidden" name="question${i + 1}" type="radio" value="painting">
         <span>Рисунок</span>
       </label>
     </div>`).join(``)}

@@ -22,8 +22,8 @@ export default class QuestionOneImageView extends AbstractView {
             <input class="visually-hidden" name="question1" type="radio" value="photo">
             <span>Фото</span>
           </label>
-          <label class="game__answer  game__answer--paint" ${debug.enable && this.question.answers[0].type === `paint` ? debug.styleRight : ``}>
-            <input class="visually-hidden" name="question1" type="radio" value="paint">
+          <label class="game__answer  game__answer--paint" ${debug.enable && this.question.answers[0].type === `painting` ? debug.styleRight : ``}>
+            <input class="visually-hidden" name="question1" type="radio" value="painting">
             <span>Рисунок</span>
           </label>
         </div>

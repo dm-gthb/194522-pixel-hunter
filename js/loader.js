@@ -1,5 +1,3 @@
-import {adaptServerData} from './data/data-adapter.js';
-
 const URL = `https://es.dump.academy/pixel-hunter/questions`;
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -13,7 +11,6 @@ export default class Loader {
   static loadData() {
     return fetch(URL).
       then(checkStatus).
-      then((response) => response.json()).
-      then((data) => adaptServerData(data));
+      then((response) => response.json());
   }
 }
