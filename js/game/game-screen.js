@@ -21,6 +21,17 @@ export default class GameScreen {
     return this.root;
   }
 
+  checkAnsweerSpeed() {
+    const stateTime = this.model.state.time;
+    if (stateTime <= 10) {
+      return this.model.addAnswer(`slow`);
+    } else if (stateTime > 20) {
+      return this.model.addAnswer(`fast`);
+    } else {
+      return this.model.addAnswer(`correct`);
+    }
+  }
+
   startGame() {
     this.model.restartTimer();
     this.changeQuestion();
@@ -28,6 +39,9 @@ export default class GameScreen {
     this._timer = setInterval(() => {
       this.model.tick();
       this.updateTimeDisplay(this.model.state.time);
+      if (this.model.state.time < 0) {
+        this.answer(false);
+      }
     }, ONE_SECOND);
   }
 
@@ -37,9 +51,8 @@ export default class GameScreen {
 
   answer(answerResult) {
     this.stopTimer();
-
     if (answerResult) {
-      this.model.addAnswer(`correct`);
+      this.checkAnsweerSpeed();
     } else {
       this.model.addAnswer(`wrong`);
       if (!this.model.hasLifes()) {

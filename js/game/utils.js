@@ -38,7 +38,7 @@ export const renderElement = (template = ``, tagName = `div`) => {
 export const tick = (state) => {
   let time = 0;
 
-  if (state.time > 0) {
+  if (state.time >= 0) {
     time = state.time - 1;
   }
 
