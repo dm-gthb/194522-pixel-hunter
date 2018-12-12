@@ -13,10 +13,10 @@ export default class QuestionThreeImagesView extends AbstractView {
   get template() {
     const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
     return `<section class="game">
-  <p class="game__task">${this.question.questionText}</p>
+  <p class="game__task">${this.question.question}</p>
   <form class="game__content  game__content--triple">
     ${this.question.answers.map((answer, i) =>
-    `<div class="game__option"><img src="${answer.image}" alt="Option ${i + 1}" width="304" height="455" ${debug.enable && this.question.soughtFor === answer.value ? debug.styleRight : ``}></div>`).join(``)}
+    `<div class="game__option"><img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}></div>`).join(``)}
     </form>
     ${resultsChart}
 </section>`;
@@ -28,7 +28,7 @@ export default class QuestionThreeImagesView extends AbstractView {
     const options = Array.from(this.element.querySelectorAll(`.game__option img`));
     options.forEach((option, i) => {
       option.addEventListener(`click`, () => {
-        let isAnswerRight = this.question.answers[i].value === this.question.soughtFor;
+        let isAnswerRight = this.question.answers[i].type === `painting`;
         this.onAnswer(isAnswerRight);
       });
     });
