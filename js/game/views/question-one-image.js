@@ -1,17 +1,17 @@
-import AbstractView from './abstract.js';
-import resultsChartTemplate from '../templates/results-chart.js';
+import AbstractView from '../../abstract-view.js';
+import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
 
 export default class QuestionOneImageView extends AbstractView {
-  constructor(question, results, questionsQuantity) {
+  constructor(question, answers, questionsQuantity) {
     super();
     this.question = question;
-    this.results = results;
+    this.answers = answers;
     this.questionsQuantity = questionsQuantity;
   }
 
   get template() {
-    const resultsChart = resultsChartTemplate(this.results, this.questionsQuantity);
+    const resultsChart = resultsChartTemplate(this.answers, this.questionsQuantity);
     const answer = this.question.answers[0];
     return `<section class="game">
       <p class="game__task">${this.question.question}</p>

@@ -8,7 +8,7 @@ export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
-    this.question = new QuestionView(this.model.getCurrentQuestion(), this.model._results, this.model.getQuestionsQuantity());
+    this.question = new QuestionView(this.model.getCurrentQuestion(), this.model._answers, this.model.getQuestionsQuantity());
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
@@ -39,11 +39,11 @@ export default class GameScreen {
     this.stopTimer();
 
     if (answerResult) {
-      this.model.addAnswer(`right`);
+      this.model.addAnswer(`correct`);
     } else {
       this.model.addAnswer(`wrong`);
       if (!this.model.hasLifes()) {
-        return this.endGame(false);
+        return this.endGame();
       }
       this.model.reduceLifes();
     }
@@ -51,7 +51,7 @@ export default class GameScreen {
       this.model.nextQuestion();
       return this.startGame();
     } else {
-      return this.endGame(true);
+      return this.endGame();
     }
   }
 
@@ -67,13 +67,13 @@ export default class GameScreen {
 
   changeQuestion() {
     this.updateHeader();
-    const question = new QuestionView(this.model.getCurrentQuestion(), this.model._results, this.model.getQuestionsQuantity());
+    const question = new QuestionView(this.model.getCurrentQuestion(), this.model._answers, this.model.getQuestionsQuantity());
     question.onAnswer = (isRightAnswer) => this.answer(isRightAnswer);
     this.changeContentView(question);
   }
 
-  endGame(isWin) {
-    Router.showStats(isWin, this.model);
+  endGame() {
+    Router.showStats(this.model);
   }
 
   changeContentView(view) {

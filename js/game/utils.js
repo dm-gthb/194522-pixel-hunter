@@ -1,6 +1,8 @@
 const RIGHT_ANSWER_POINTS = 100;
 const REST_LIFE_POINTS = 50;
 const ONE_OUESTION_TIME = 30;
+const FAST_ANSWER_POINTS = 50;
+const SLOW_ANSWER_FINE = 50;
 
 export const stillHaveLifes = (state) => state.lifes - 1 > 0;
 
@@ -79,14 +81,21 @@ export const resize = (container, image) => {
   return newDimensions;
 };
 
-export const countPoints = (results, lifes) => {
-  const rightAnswersArray = results.filter((result) => result === `right`);
+export const countPoints = (answers, lifes) => {
+  const rightAnswers = answers.filter((answer) => answer !== `wrong`);
+  const fastAnswers = answers.filter((answer) => answer === `fast`);
+  const slowAnswers = answers.filter((answer) => answer === `slow`);
   const pointsByLifes = lifes * REST_LIFE_POINTS;
-  const pointsByRightAnswers = rightAnswersArray.length * RIGHT_ANSWER_POINTS;
-  const total = pointsByLifes + pointsByRightAnswers;
+  const pointsByRightAnswers = rightAnswers.length * RIGHT_ANSWER_POINTS;
+  const pointsByFastAnswers = fastAnswers.length * FAST_ANSWER_POINTS;
+  const fineBySlowAnswers = slowAnswers.length * SLOW_ANSWER_FINE;
+
+  const total = pointsByLifes + pointsByRightAnswers + pointsByFastAnswers - fineBySlowAnswers;
   const points = {
     pointsByLifes,
     pointsByRightAnswers,
+    pointsByFastAnswers,
+    fineBySlowAnswers,
     total
   };
 

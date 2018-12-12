@@ -1,4 +1,4 @@
-import AbstractView from '../game/views/abstract.js';
+import AbstractView from '../abstract-view.js';
 
 export default class ErrorScreen extends AbstractView {
   constructor(error) {
