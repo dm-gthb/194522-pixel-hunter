@@ -1,6 +1,9 @@
 const URL = `https://es.dump.academy/pixel-hunter/questions`;
+const STATUS_OK = 200;
+const STATUS_MULTIPLE_CHOICE = 300;
+
 const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.status >= STATUS_OK && response.status < STATUS_MULTIPLE_CHOICE) {
     return response;
   } else {
     throw new Error(`${response.status}: ${response.statusText}`);
