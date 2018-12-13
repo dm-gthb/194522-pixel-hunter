@@ -6,6 +6,7 @@ import GameModel from './data/game-model.js';
 import StatsScreen from './stats/stats-screen.js';
 import ErrorScreen from './error/error-screen.js';
 import Loader from './loader.js';
+import SplashScreen from './splash/splash-screen.js';
 
 const main = document.querySelector(`#main`);
 const changeView = (element) => {
@@ -17,10 +18,14 @@ let gameData;
 
 export default class Router {
   static start() {
+    const splash = new SplashScreen();
+    changeView(splash.element);
+    splash.start();
     Loader.loadData().
       then((data) => gameData = data).
       then(() => Router.showIntro()).
-      catch(Router.showErrorPopup)
+      catch(Router.showErrorPopup).
+      then(() => splash.stop());
   }
 
   static showIntro() {
