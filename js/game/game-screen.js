@@ -42,6 +42,9 @@ export default class GameScreen {
       if (this.model.state.time < 0) {
         this.answer(false);
       }
+      if (this.model.state.time <= 5) {
+        this.header.blinkTimeDisplay();
+      }
     }, ONE_SECOND);
   }
 

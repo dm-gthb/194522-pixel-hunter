@@ -34,6 +34,14 @@ export default class HeaderView extends AbstractView {
     timeDisplay.textContent = seconds;
   }
 
+  blinkTimeDisplay() {
+    const timeDisplay = this.element.querySelector(`.game__timer`);
+    timeDisplay.style.opacity = 0;
+    setTimeout(() => {
+      timeDisplay.style.opacity = 1
+    } , 500);
+  }
+
   onBackButtonClick() {}
 
   bind() {
