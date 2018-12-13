@@ -20,7 +20,7 @@ export default class Router {
     Loader.loadData().
       then((data) => gameData = data).
       then(() => Router.showIntro()).
-      catch(Router.showError)
+      catch(Router.showErrorPopup)
   }
 
   static showIntro() {
@@ -47,40 +47,14 @@ export default class Router {
   static showStats(model) {
     const statistics = new StatsScreen(model);
     changeView(statistics.element);
-    // EXAMPLE DATA
-    // setTimeout(() => {
-    //   statistics.showResultsHistory([
-    //     {
-    //       date: 1234567567898, // Дата создания статистики в ms
-    //       stats: ['correct', 'wrong', 'fast', 'wrong', 'correct', 'wrong', 'wrong'], // Статистика ответа пользователя
-    //       lives: 0 // Кол-во оставшихся жизней
-    //     },
-    //     {
-    //       date: 1234567567898, // Дата создания статистики в ms
-    //       stats: ['correct', 'correct', 'correct', 'slow', 'correct', 'wrong', 'fast', 'slow', 'correct', 'wrong'], // Статистика ответа пользователя
-    //       lives: 3 // Кол-во оставшихся жизней
-    //     },
-    //     {
-    //       date: 1234567567898, // Дата создания статистики в ms
-    //       stats: ['correct', 'wrong', 'fast', 'slow', 'correct', 'wrong', 'fast', 'slow', 'correct', 'wrong'], // Статистика ответа пользователя
-    //       lives: 2 // Кол-во оставшихся жизней
-    //     },
-    //     {
-    //       date: 1234567567898, // Дата создания статистики в ms
-    //       stats: ['correct', 'wrong', 'fast', 'wrong', 'correct', 'wrong', 'wrong'], // Статистика ответа пользователя
-    //       lives: 0 // Кол-во оставшихся жизней
-    //     }
-    //   ]);
-    // }, 500);
 
-    Loader.loadResults().
+    Loader.saveResults(model).
+      then(() => Loader.loadResults()).
       then((data) => statistics.showResultsHistory(data)).
-      catch(Router.showError);
-
-    Loader.saveResults(model);
+      catch((error) => statistics.showResultsLoadingError(error));
   }
 
-  static showError(errorMessage) {
+  static showErrorPopup(errorMessage) {
     const error = new ErrorScreen(errorMessage);
     changeView(error.element);
   }

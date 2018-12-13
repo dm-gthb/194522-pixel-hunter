@@ -31,10 +31,16 @@ export default class StatsScreeen extends AbstractView {
   }
 
   showResultsHistory(previousGames) {
+    previousGames.reverse();
     const resultsHistoryMarkup = `${previousGames.map((previousGame, i) => {
-      return resultTableTemplate(previousGame.stats, previousGame.lives, this.model.getQuestionsQuantity(), i + 2);
-    })}`;
+      return resultTableTemplate(previousGame.stats, previousGame.lives, this.model.getQuestionsQuantity(), i + 1);
+    }).join(``)}`;
 
-    this._resultsHistoryContainer.insertAdjacentHTML(`beforeend`, resultsHistoryMarkup);
+    this._resultsHistoryContainer.innerHTML = resultsHistoryMarkup;
+  }
+
+  showResultsLoadingError(errorMessage) {
+    const message = `<p>Previous Games Results Couldn't Be Loaded<br>${errorMessage}</p>`;
+    this._resultsHistoryContainer.insertAdjacentHTML(`beforeend`, message);
   }
 }
