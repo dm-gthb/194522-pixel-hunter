@@ -1,5 +1,6 @@
 import HeaderView from './views/header.js';
 import QuestionView from './views/question.js';
+import ConfirmView from './views/confirm.js';
 import Router from '../router.js';
 
 const ONE_SECOND = 1000;
@@ -8,6 +9,7 @@ export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
+    this.confirmPopup = new ConfirmView();
     this.question = new QuestionView(this.model.getCurrentQuestion(), this.model._answers, this.model.getQuestionsQuantity());
 
     this.root = document.createElement(`div`);
@@ -36,7 +38,9 @@ export default class GameScreen {
   startGame() {
     this.model.restartTimer();
     this.changeQuestion();
-    this.header.onBackButtonClick = () => Router.showGreeting();
+    this.header.onBackButtonClick = () => {
+      this.showConfirmPopup();
+    };
     this._timer = setInterval(() => {
       this.model.tick();
       this.updateTimeDisplay(this.model.state.time);
@@ -51,6 +55,17 @@ export default class GameScreen {
 
   stopTimer() {
     clearInterval(this._timer);
+  }
+
+  showConfirmPopup() {
+    this.root.appendChild(this.confirmPopup.element);
+    this.confirmPopup.onAgreeButtonClick = () => Router.showGreeting();
+    this.confirmPopup.onDisagreeButtonClick = () => this.hideConfirmPopup();
+    this.confirmPopup.onCloseButtonClick = () => this.hideConfirmPopup();
+  }
+
+  hideConfirmPopup() {
+    this.root.removeChild(this.confirmPopup.element);
   }
 
   answer(answerResult) {

@@ -40,7 +40,6 @@ export default class RulesScreen extends AbstractView {
     const formElement = this.element.querySelector(`.rules__form`);
     const inputElement = formElement.querySelector(`.rules__input`);
     const nextScreenButtonElement = formElement.querySelector(`.rules__button`);
-    const backButtonElement = this.element.querySelector(`.back`);
 
     formElement.addEventListener(`input`, () => {
       nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
@@ -50,7 +49,5 @@ export default class RulesScreen extends AbstractView {
       evt.preventDefault();
       Router.showGame(inputElement.value);
     });
-
-    backButtonElement.addEventListener(`click`, () => Router.showGreeting());
   }
 }
