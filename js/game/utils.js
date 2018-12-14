@@ -82,22 +82,30 @@ export const resize = (container, image) => {
 };
 
 export const countPoints = (answers, lifes) => {
-  const rightAnswers = answers.filter((answer) => answer !== `wrong`);
-  const fastAnswers = answers.filter((answer) => answer === `fast`);
-  const slowAnswers = answers.filter((answer) => answer === `slow`);
-  const pointsByLifes = lifes * REST_LIFE_POINTS;
-  const pointsByRightAnswers = rightAnswers.length * RIGHT_ANSWER_POINTS;
-  const pointsByFastAnswers = fastAnswers.length * FAST_ANSWER_POINTS;
-  const fineBySlowAnswers = slowAnswers.length * SLOW_ANSWER_FINE;
+  const restLifes = lifes * REST_LIFE_POINTS;
+  const points = answers.reduce((accumulator, answer) => {
+    if (answer === `wrong`) {
+      return accumulator;
+    }
 
-  const total = pointsByLifes + pointsByRightAnswers + pointsByFastAnswers - fineBySlowAnswers;
-  const points = {
-    pointsByLifes,
-    pointsByRightAnswers,
-    pointsByFastAnswers,
-    fineBySlowAnswers,
-    total
-  };
+    if (answer === `fast`) {
+      accumulator.fastAnswers += FAST_ANSWER_POINTS;
+    }
 
-  return Object.assign({}, points);
+    if (answer === `slow`) {
+      accumulator.slowAnswers += SLOW_ANSWER_FINE;
+    }
+
+    accumulator.rightAnswers += RIGHT_ANSWER_POINTS;
+    return accumulator;
+
+  }, {
+    rightAnswers: 0,
+    fastAnswers: 0,
+    slowAnswers: 0,
+    restLifes
+  });
+
+  points.total = points.restLifes + points.rightAnswers + points.fastAnswers - points.slowAnswers;
+  return points;
 };
