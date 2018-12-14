@@ -23,13 +23,14 @@ export default class GameScreen {
 
   checkAnsweerSpeed() {
     const stateTime = this.model.state.time;
+
     if (stateTime <= 10) {
       return this.model.addAnswer(`slow`);
     } else if (stateTime > 20) {
       return this.model.addAnswer(`fast`);
-    } else {
-      return this.model.addAnswer(`correct`);
     }
+
+    return this.model.addAnswer(`correct`);
   }
 
   startGame() {
