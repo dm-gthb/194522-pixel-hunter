@@ -77,7 +77,6 @@ export const resize = (container, image) => {
     image.height = calculatedHeight;
   }
 
-  // console.log(image);
   return image;
 };
 
