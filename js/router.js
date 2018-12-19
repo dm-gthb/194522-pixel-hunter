@@ -22,16 +22,21 @@ export default class Router {
     const splash = new SplashScreen();
     changeView(splash.element);
     splash.start();
-    Loader.loadData().
-      then((data) => {
+    Loader.loadData()
+      .then((data) => {
         gameData = data;
         return data;
-      }).
-      then((data) => data.map((dataQuestion) => dataQuestion.answers.map((dataAnswer) => loadImage(dataAnswer.image.url)))).
-      then((avatarPromises) => Promise.all(avatarPromises)).
-      then(() => Router.showIntro()).
-      catch(Router.showErrorPopup).
-      then(() => splash.stop());
+      })
+      .then((data) => {
+        return data.reduce((accumulator, {answers}) => {
+          return [...accumulator, ...answers];
+        }, []);
+      })
+      .then((answers) => answers.map(({image}) => loadImage(image.url)))
+      .then((imagesPromises) => Promise.all(imagesPromises))
+      .then(() => Router.showIntro())
+      .catch(Router.showErrorPopup)
+      .then(() => splash.stop());
   }
 
   static showIntro() {
