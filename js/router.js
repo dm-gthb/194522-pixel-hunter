@@ -6,7 +6,6 @@ import GameModel from './data/game-model.js';
 import StatsScreen from './stats/stats-screen.js';
 import ErrorScreen from './error/error-screen.js';
 import Loader from './loader.js';
-import SplashScreen from './splash/splash-screen.js';
 import {loadImage} from './game/utils.js';
 
 const main = document.querySelector(`#main`);
@@ -19,9 +18,9 @@ let gameData;
 
 export default class Router {
   static start() {
-    const splash = new SplashScreen();
-    changeView(splash.element);
-    splash.start();
+    const intro = new IntroScreen();
+    changeView(intro.element);
+    intro.startLoadingAnimation();
     Loader.loadData()
       .then((data) => {
         gameData = data;
@@ -34,14 +33,9 @@ export default class Router {
       })
       .then((answers) => answers.map(({image}) => loadImage(image.url)))
       .then((imagesPromises) => Promise.all(imagesPromises))
-      .then(() => Router.showIntro())
+      .then(() => Router.showGreeting())
       .catch(Router.showErrorPopup)
-      .then(() => splash.stop());
-  }
-
-  static showIntro() {
-    const intro = new IntroScreen();
-    changeView(intro.element);
+      .then(() => intro.stopLoadingAnimation());
   }
 
   static showGreeting() {
