@@ -64,10 +64,10 @@ export default class Router {
     const statistics = new StatsScreen(model);
     changeView(statistics.element);
 
-    Loader.saveResults(model).
-      then(() => Loader.loadResults()).
-      then((data) => statistics.showResultsHistory(data)).
-      catch((error) => statistics.showResultsLoadingError(error));
+    Loader.saveResults(model)
+      .then(() => Loader.loadResults())
+      .then((data) => statistics.showResultsHistory(data))
+      .catch((error) => statistics.showResultsLoadingError(error));
   }
 
   static showErrorPopup(errorMessage) {
