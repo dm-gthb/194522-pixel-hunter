@@ -77,8 +77,8 @@ export const resize = (container, image) => {
     image.height = calculatedHeight;
   }
 
-  const newDimensions = Object.assign({}, image);
-  return newDimensions;
+  // console.log(image);
+  return image;
 };
 
 export const countPoints = (answers, lifes) => {
@@ -108,4 +108,13 @@ export const countPoints = (answers, lifes) => {
 
   points.total = points.restLifes + points.rightAnswers + points.fastAnswers - points.slowAnswers;
   return points;
+};
+
+export const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(`Не удалось загрузить картнку: ${url}`);
+    image.src = url;
+  });
 };

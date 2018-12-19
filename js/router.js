@@ -7,6 +7,8 @@ import StatsScreen from './stats/stats-screen.js';
 import ErrorScreen from './error/error-screen.js';
 import Loader from './loader.js';
 import SplashScreen from './splash/splash-screen.js';
+import ImageLoader from './image-loader.js';
+import {loadImage} from './game/utils.js';
 
 const main = document.querySelector(`#main`);
 const changeView = (element) => {
@@ -23,6 +25,8 @@ export default class Router {
     splash.start();
     Loader.loadData().
       then((data) => gameData = data).
+      then((data) => data.map((dataQuestion) => dataQuestion.answers.map((dataAnswer) => loadImage(dataAnswer.image.url)))).
+      then((avatarPromises) => Promise.all(avatarPromises)).
       then(() => Router.showIntro()).
       catch(Router.showErrorPopup).
       then(() => splash.stop());
