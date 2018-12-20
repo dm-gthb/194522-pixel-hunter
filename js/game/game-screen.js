@@ -59,7 +59,10 @@ export default class GameScreen {
 
   showConfirmPopup() {
     this.root.appendChild(this.confirmPopup.element);
-    this.confirmPopup.onAgreeButtonClick = () => Router.showGreeting();
+    this.confirmPopup.onAgreeButtonClick = () => {
+      Router.showGreeting();
+      this.stopTimer();
+    };
     this.confirmPopup.onDisagreeButtonClick = () => this.hideConfirmPopup();
     this.confirmPopup.onCloseButtonClick = () => this.hideConfirmPopup();
   }
