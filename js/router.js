@@ -33,7 +33,17 @@ export default class Router {
       })
       .then((answers) => answers.map(({image}) => loadImage(image.url)))
       .then((imagesPromises) => Promise.all(imagesPromises))
-      .then(() => Router.showGreeting())
+      .then((data) => intro.hideIntro())
+      .then(() => {
+        setTimeout(() => {
+          intro.replaceBlocks();
+        }, 1000)
+      })
+      .then(() => {
+        setTimeout(() => {
+          intro.showGreeting();
+        }, 1000)
+      })
       .catch(Router.showErrorPopup)
       .then(() => intro.stopLoadingAnimation());
   }
