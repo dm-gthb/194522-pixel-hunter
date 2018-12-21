@@ -8,6 +8,7 @@ import ErrorScreen from './error/error-screen.js';
 import Loader from './loader.js';
 import {loadImage} from './game/utils.js';
 
+const ONE_SECOND = 1000;
 const main = document.querySelector(`#main`);
 const changeView = (element) => {
   main.innerHTML = ``;
@@ -33,16 +34,11 @@ export default class Router {
       })
       .then((answers) => answers.map(({image}) => loadImage(image.url)))
       .then((imagesPromises) => Promise.all(imagesPromises))
-      .then((data) => intro.hideIntro())
+      .then(() => intro.changeBackground())
       .then(() => {
         setTimeout(() => {
-          intro.replaceBlocks();
-        }, 1000)
-      })
-      .then(() => {
-        setTimeout(() => {
-          intro.showGreeting();
-        }, 1000)
+          Router.showGreeting();
+        }, ONE_SECOND);
       })
       .catch(Router.showErrorPopup)
       .then(() => intro.stopLoadingAnimation());

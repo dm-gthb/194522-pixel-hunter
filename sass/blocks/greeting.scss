@@ -7,7 +7,7 @@
 @import "../variables/colors";
 
 .greeting {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
 
