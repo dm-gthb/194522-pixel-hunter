@@ -1,6 +1,8 @@
 const RIGHT_ANSWER_POINTS = 100;
 const REST_LIFE_POINTS = 50;
 const ONE_OUESTION_TIME = 30;
+const FAST_ANSWER_POINTS = 50;
+const SLOW_ANSWER_FINE = 50;
 
 export const stillHaveLifes = (state) => state.lifes - 1 > 0;
 
@@ -36,7 +38,7 @@ export const renderElement = (template = ``, tagName = `div`) => {
 export const tick = (state) => {
   let time = 0;
 
-  if (state.time > 0) {
+  if (state.time >= 0) {
     time = state.time - 1;
   }
 
@@ -75,20 +77,43 @@ export const resize = (container, image) => {
     image.height = calculatedHeight;
   }
 
-  const newDimensions = Object.assign({}, image);
-  return newDimensions;
+  return image;
 };
 
-export const countPoints = (results, lifes) => {
-  const rightAnswersArray = results.filter((result) => result === `right`);
-  const pointsByLifes = lifes * REST_LIFE_POINTS;
-  const pointsByRightAnswers = rightAnswersArray.length * RIGHT_ANSWER_POINTS;
-  const total = pointsByLifes + pointsByRightAnswers;
-  const points = {
-    pointsByLifes,
-    pointsByRightAnswers,
-    total
-  };
+export const countPoints = (answers, lifes) => {
+  const restLifes = lifes * REST_LIFE_POINTS;
+  const points = answers.reduce((accumulator, answer) => {
+    if (answer === `wrong`) {
+      return accumulator;
+    }
 
-  return Object.assign({}, points);
+    if (answer === `fast`) {
+      accumulator.fastAnswers += FAST_ANSWER_POINTS;
+    }
+
+    if (answer === `slow`) {
+      accumulator.slowAnswers += SLOW_ANSWER_FINE;
+    }
+
+    accumulator.rightAnswers += RIGHT_ANSWER_POINTS;
+    return accumulator;
+
+  }, {
+    rightAnswers: 0,
+    fastAnswers: 0,
+    slowAnswers: 0,
+    restLifes
+  });
+
+  points.total = points.restLifes + points.rightAnswers + points.fastAnswers - points.slowAnswers;
+  return points;
+};
+
+export const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(`Не удалось загрузить картнку: ${url}`);
+    image.src = url;
+  });
 };

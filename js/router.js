@@ -6,7 +6,9 @@ import GameModel from './data/game-model.js';
 import StatsScreen from './stats/stats-screen.js';
 import ErrorScreen from './error/error-screen.js';
 import Loader from './loader.js';
+import {loadImage} from './game/utils.js';
 
+const ONE_SECOND = 1000;
 const main = document.querySelector(`#main`);
 const changeView = (element) => {
   main.innerHTML = ``;
@@ -17,15 +19,29 @@ let gameData;
 
 export default class Router {
   static start() {
-    Loader.loadData().
-      then((data) => gameData = data).
-      then(() => Router.showIntro()).
-      catch(Router.showError)
-  }
-
-  static showIntro() {
     const intro = new IntroScreen();
     changeView(intro.element);
+    intro.startLoadingAnimation();
+    Loader.loadData()
+      .then((data) => {
+        gameData = data;
+        return data;
+      })
+      .then((data) => {
+        return data.reduce((accumulator, {answers}) => {
+          return [...accumulator, ...answers];
+        }, []);
+      })
+      .then((answers) => answers.map(({image}) => loadImage(image.url)))
+      .then((imagesPromises) => Promise.all(imagesPromises))
+      .then(() => intro.changeBackground())
+      .then(() => {
+        setTimeout(() => {
+          Router.showGreeting();
+        }, ONE_SECOND);
+      })
+      .catch(Router.showErrorPopup)
+      .then(() => intro.stopLoadingAnimation());
   }
 
   static showGreeting() {
@@ -44,12 +60,17 @@ export default class Router {
     gameScreen.startGame();
   }
 
-  static showStats(isWin, model) {
-    const statistics = new StatsScreen(isWin, model);
+  static showStats(model) {
+    const statistics = new StatsScreen(model);
     changeView(statistics.element);
+
+    Loader.saveResults(model)
+      .then(() => Loader.loadResults())
+      .then((data) => statistics.showResultsHistory(data))
+      .catch((error) => statistics.showResultsLoadingError(error));
   }
 
-  static showError(errorMessage) {
+  static showErrorPopup(errorMessage) {
     const error = new ErrorScreen(errorMessage);
     changeView(error.element);
   }

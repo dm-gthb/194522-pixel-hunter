@@ -1,4 +1,4 @@
-import AbstractView from '../game/views/abstract.js';
+import AbstractView from '../abstract-view.js';
 import Router from '../router.js';
 
 export default class RulesScreen extends AbstractView {

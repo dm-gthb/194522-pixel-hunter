@@ -1,4 +1,4 @@
-import AbstractView from './abstract.js';
+import AbstractView from '../../abstract-view.js';
 
 export default class HeaderView extends AbstractView {
   constructor(state) {
@@ -32,6 +32,14 @@ export default class HeaderView extends AbstractView {
   updateTimeDisplay(seconds) {
     const timeDisplay = this.element.querySelector(`.game__timer`);
     timeDisplay.textContent = seconds;
+  }
+
+  blinkTimeDisplay() {
+    const timeDisplay = this.element.querySelector(`.game__timer`);
+    timeDisplay.style.opacity = 0;
+    setTimeout(() => {
+      timeDisplay.style.opacity = 1
+    } , 500);
   }
 
   onBackButtonClick() {}

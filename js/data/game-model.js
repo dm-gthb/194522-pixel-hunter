@@ -11,15 +11,15 @@ export default class GameModel {
     this.data = data;
     this.playerName = playerName;
     this.restart();
-    this._results = [];
+    this._answers = [];
   }
 
   get state() {
     return this._state;
   }
 
-  get results() {
-    return this._results;
+  get answers() {
+    return this._answers;
   }
 
   hasNextQuestion() {
@@ -54,8 +54,8 @@ export default class GameModel {
     this._state = changeQuestion(this._state, this._state.question + 1);
   }
 
-  addAnswer(result) {
-    this._results.push(result);
+  addAnswer(answer) {
+    this._answers.push(answer);
   }
 
   tick() {
