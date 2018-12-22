@@ -117,3 +117,21 @@ export const loadImage = (url) => {
     image.src = url;
   });
 };
+
+export async function resizeImage(dataImage, i = 0) {
+  const loadedImage = await loadImage(dataImage.url);
+  const containerSize = {
+    width: dataImage.width,
+    height: dataImage.height
+  };
+
+  const initImageSize = {
+    width: loadedImage.width,
+    height: loadedImage.height
+  };
+
+  const newSize = resize(containerSize, initImageSize);
+  const alreadyRenderedImages = Array.from(document.querySelectorAll(`.game__content img`));
+  alreadyRenderedImages[i].width = newSize.width;
+  alreadyRenderedImages[i].height = newSize.height;
+}

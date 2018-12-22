@@ -1,6 +1,7 @@
 import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
+import {resizeImage} from '../utils.js';
 
 export default class QuestionTwoImagesView extends AbstractView {
   constructor(question, answers, questionsQuantity) {
@@ -17,6 +18,7 @@ export default class QuestionTwoImagesView extends AbstractView {
   <form class="game__content">
     ${this.question.answers.map((answer, i) =>
     `<div class="game__option">
+      ${resizeImage(answer.image, i)}
       <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}">
       <label class="game__answer game__answer--photo" ${debug.enable && answer.type === `photo` ? debug.styleRight : ``}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
