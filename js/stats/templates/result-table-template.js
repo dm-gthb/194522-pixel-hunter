@@ -3,7 +3,7 @@ import {countPoints} from '../../game/utils.js';
 
 const ERRORS_TO_FAIL = 4;
 
-const resultTableTemplate = (answers, lifes, questionsQuantity, index=`1`) => {
+const resultTableTemplate = (answers, lifes, questionsQuantity, index = `1`) => {
   const rightAnswers = answers.filter((answer) => answer !== `wrong`);
   const isWin = rightAnswers.length > (questionsQuantity - ERRORS_TO_FAIL);
   const resultsChart = resultsChartTemplate(answers, questionsQuantity);
@@ -50,6 +50,6 @@ const resultTableTemplate = (answers, lifes, questionsQuantity, index=`1`) => {
       </tr>` : ``}
     </table>
   </section>`;
-}
+};
 
 export default resultTableTemplate;

@@ -27,7 +27,7 @@ export default class Loader {
 
   static saveResults(data, name = DEFAULT_NAME) {
     const exportData = {
-      name: name,
+      name,
       stats: data.answers,
       lives: data.state.lifes
     };

@@ -38,14 +38,14 @@ export default class HeaderView extends AbstractView {
     const timeDisplay = this.element.querySelector(`.game__timer`);
     timeDisplay.style.opacity = 0;
     setTimeout(() => {
-      timeDisplay.style.opacity = 1
-    } , 500);
+      timeDisplay.style.opacity = 1;
+    }, 500);
   }
 
   onBackButtonClick() {}
 
   bind() {
     const backButtonElement = this.element.querySelector(`.back`);
-    backButtonElement.addEventListener('click', () => this.onBackButtonClick());
+    backButtonElement.addEventListener(`click`, () => this.onBackButtonClick());
   }
 }
