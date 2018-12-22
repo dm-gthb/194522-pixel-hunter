@@ -19,29 +19,29 @@ let gameData;
 
 export default class Router {
   static start() {
+    Router.load();
+  }
+
+  static async load() {
     const intro = new IntroScreen();
     changeView(intro.element);
     intro.startLoadingAnimation();
-    Loader.loadData()
-      .then((data) => {
-        gameData = data;
-        return data;
-      })
-      .then((data) => {
-        return data.reduce((accumulator, {answers}) => {
-          return [...accumulator, ...answers];
-        }, []);
-      })
-      .then((answers) => answers.map(({image}) => loadImage(image.url)))
-      .then((imagesPromises) => Promise.all(imagesPromises))
-      .then(() => intro.changeBackground())
-      .then(() => {
-        setTimeout(() => {
-          Router.showGreeting();
-        }, ONE_SECOND);
-      })
-      .catch(Router.showErrorPopup)
-      .then(() => intro.stopLoadingAnimation());
+    try {
+      gameData = await Loader.loadData();
+      const answersData = gameData.reduce((accumulator, {answers}) => {
+        return [...accumulator, ...answers];
+      }, []);
+      const imagesData = answersData.map(({image}) => loadImage(image.url));
+      await Promise.all(imagesData);
+      intro.changeBackground();
+      setTimeout(() => {
+        Router.showGreeting();
+      }, ONE_SECOND);
+    } catch (error) {
+      Router.showErrorPopup(error);
+    } finally {
+      intro.stopLoadingAnimation();
+    }
   }
 
   static showGreeting() {
@@ -60,14 +60,17 @@ export default class Router {
     gameScreen.startGame();
   }
 
-  static showStats(model) {
+  static async showStats(model) {
     const statistics = new StatsScreen(model);
     changeView(statistics.element);
 
-    Loader.saveResults(model)
-      .then(() => Loader.loadResults())
-      .then((data) => statistics.showResultsHistory(data))
-      .catch((error) => statistics.showResultsLoadingError(error));
+    try {
+      await Loader.saveResults(model);
+      const previousResults = await Loader.loadResults();
+      statistics.showResultsHistory(previousResults);
+    } catch (error) {
+      statistics.showResultsLoadingError(error);
+    }
   }
 
   static showErrorPopup(errorMessage) {
