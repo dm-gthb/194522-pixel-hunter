@@ -1,6 +1,7 @@
 import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
+import {resizeImage} from '../utils.js';
 
 export default class QuestionThreeImagesView extends AbstractView {
   constructor(question, answers, questionsQuantity) {
@@ -16,7 +17,9 @@ export default class QuestionThreeImagesView extends AbstractView {
   <p class="game__task">${this.question.question}</p>
   <form class="game__content  game__content--triple">
     ${this.question.answers.map((answer, i) =>
-    `<div class="game__option"><img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}></div>`).join(``)}
+    `<div class="game__option">
+    ${resizeImage(answer.image, i)}
+    <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}></div>`).join(``)}
     </form>
     ${resultsChart}
 </section>`;
