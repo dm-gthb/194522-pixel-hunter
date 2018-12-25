@@ -2,8 +2,14 @@ import HeaderView from './views/header.js';
 import QuestionView from './views/question.js';
 import ConfirmView from './views/confirm.js';
 import Router from '../router.js';
+import {ResultType} from '../data/game-data.js';
 
 const ONE_SECOND = 1000;
+const RestSeconds = {
+  VERY_FEW: 5,
+  FEW: 10,
+  STANDARD: 20
+};
 
 export default class GameScreen {
   constructor(model) {
@@ -23,16 +29,16 @@ export default class GameScreen {
     return this.root;
   }
 
-  checkAnsweerSpeed() {
+  checkAnswerSpeed() {
     const stateTime = this.model.state.time;
 
-    if (stateTime <= 10) {
-      return this.model.addAnswer(`slow`);
-    } else if (stateTime > 20) {
-      return this.model.addAnswer(`fast`);
+    if (stateTime <= RestSeconds.FEW) {
+      return this.model.addAnswer(ResultType.SLOW);
+    } else if (stateTime > RestSeconds.STANDARD) {
+      return this.model.addAnswer(ResultType.FAST);
     }
 
-    return this.model.addAnswer(`correct`);
+    return this.model.addAnswer(ResultType.CORRECT);
   }
 
   startGame() {
@@ -47,7 +53,7 @@ export default class GameScreen {
       if (this.model.state.time < 0) {
         this.answer(false);
       }
-      if (this.model.state.time <= 5) {
+      if (this.model.state.time <= RestSeconds.VERY_FEW) {
         this.header.blinkTimeDisplay();
       }
     }, ONE_SECOND);
@@ -74,9 +80,9 @@ export default class GameScreen {
   answer(answerResult) {
     this.stopTimer();
     if (answerResult) {
-      this.checkAnsweerSpeed();
+      this.checkAnswerSpeed();
     } else {
-      this.model.addAnswer(`wrong`);
+      this.model.addAnswer(ResultType.WRONG);
       if (!this.model.hasLifes()) {
         return this.endGame();
       }
@@ -85,9 +91,9 @@ export default class GameScreen {
     if (this.model.hasNextQuestion()) {
       this.model.nextQuestion();
       return this.startGame();
-    } else {
-      return this.endGame();
     }
+
+    return this.endGame();
   }
 
   updateTimeDisplay(seconds) {

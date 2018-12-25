@@ -2,6 +2,7 @@ import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
 import {resizeImage} from '../utils.js';
+import {AnswerOption} from '../../data/game-data.js';
 
 export default class QuestionTwoImagesView extends AbstractView {
   constructor(question, answers, questionsQuantity) {
@@ -20,11 +21,11 @@ export default class QuestionTwoImagesView extends AbstractView {
     `<div class="game__option">
       ${resizeImage(answer.image, i)}
       <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}">
-      <label class="game__answer game__answer--photo" ${debug.enable && answer.type === `photo` ? debug.styleRight : ``}>
+      <label class="game__answer game__answer--photo" ${debug.enable && answer.type === AnswerOption.PHOTO ? debug.styleRight : ``}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
         <span>Фото</span>
       </label>
-      <label class="game__answer game__answer--paint" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}>
+      <label class="game__answer game__answer--paint" ${debug.enable && answer.type === AnswerOption.PAINTING ? debug.styleRight : ``}>
         <input class="visually-hidden" name="question${i + 1}" type="radio" value="painting">
         <span>Рисунок</span>
       </label>
@@ -57,7 +58,7 @@ export default class QuestionTwoImagesView extends AbstractView {
       });
     });
 
-    const formElementChangeHandler = () => {
+    const onFormChange = () => {
       const allOptions = Array.from(formElement.querySelectorAll(`input[type="radio"]`));
       const answers = allOptions.filter((input) => input.checked);
       if (answers.length === imagesToAnswer) {
@@ -65,6 +66,6 @@ export default class QuestionTwoImagesView extends AbstractView {
       }
     };
 
-    formElement.addEventListener(`change`, formElementChangeHandler);
+    formElement.addEventListener(`change`, onFormChange);
   }
 }

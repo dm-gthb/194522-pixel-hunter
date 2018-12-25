@@ -2,6 +2,7 @@ import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
 import {resizeImage} from '../utils.js';
+import {AnswerOption} from '../../data/game-data.js';
 
 export default class QuestionOneImageView extends AbstractView {
   constructor(question, answers, questionsQuantity) {
@@ -20,11 +21,11 @@ export default class QuestionOneImageView extends AbstractView {
         <div class="game__option">
           ${resizeImage(answer.image)}
           <img src="${this.question.answers[0].image.url}" alt="Option 1" width="${this.question.answers[0].image.width}" height="${this.question.answers[0].image.height}">
-          <label class="game__answer  game__answer--photo" ${debug.enable && this.question.answers[0].type === `photo` ? debug.styleRight : ``}>
+          <label class="game__answer  game__answer--photo" ${debug.enable && this.question.answers[0].type === AnswerOption.PHOTO ? debug.styleRight : ``}>
             <input class="visually-hidden" name="question1" type="radio" value="photo">
             <span>Фото</span>
           </label>
-          <label class="game__answer  game__answer--paint" ${debug.enable && this.question.answers[0].type === `painting` ? debug.styleRight : ``}>
+          <label class="game__answer  game__answer--paint" ${debug.enable && this.question.answers[0].type === AnswerOption.PAINTING ? debug.styleRight : ``}>
             <input class="visually-hidden" name="question1" type="radio" value="painting">
             <span>Рисунок</span>
           </label>

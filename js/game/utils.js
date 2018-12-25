@@ -1,3 +1,5 @@
+import {ResultType} from '../data/game-data.js';
+
 const RIGHT_ANSWER_POINTS = 100;
 const REST_LIFE_POINTS = 50;
 const ONE_OUESTION_TIME = 30;
@@ -83,15 +85,15 @@ export const resize = (container, image) => {
 export const countPoints = (answers, lifes) => {
   const restLifes = lifes * REST_LIFE_POINTS;
   const points = answers.reduce((accumulator, answer) => {
-    if (answer === `wrong`) {
+    if (answer === ResultType.WRONG) {
       return accumulator;
     }
 
-    if (answer === `fast`) {
+    if (answer === ResultType.FAST) {
       accumulator.fastAnswers += FAST_ANSWER_POINTS;
     }
 
-    if (answer === `slow`) {
+    if (answer === ResultType.SLOW) {
       accumulator.slowAnswers += SLOW_ANSWER_FINE;
     }
 
@@ -118,7 +120,7 @@ export const loadImage = (url) => {
   });
 };
 
-export async function resizeImage(dataImage, i = 0) {
+export const resizeImage = async (dataImage, i = 0) => {
   const loadedImage = await loadImage(dataImage.url);
   const containerSize = {
     width: dataImage.width,
@@ -134,4 +136,4 @@ export async function resizeImage(dataImage, i = 0) {
   const alreadyRenderedImages = Array.from(document.querySelectorAll(`.game__content img`));
   alreadyRenderedImages[i].width = newSize.width;
   alreadyRenderedImages[i].height = newSize.height;
-}
+};

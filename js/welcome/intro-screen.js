@@ -2,6 +2,7 @@ import AbstractView from '../abstract-view.js';
 import Router from '../router.js';
 
 const NEW_BACKGROUND_URL = `url("../img/egg_distort.png")`;
+const FIFTY_MILLISECONDS = 50;
 
 export default class IntroScreen extends AbstractView {
   constructor() {
@@ -22,7 +23,7 @@ export default class IntroScreen extends AbstractView {
     const loadingSymbols = this.element.querySelector(`.intro__loading`);
     this.symbolIndex = ++this.symbolIndex >= this.symbolsSeq.length ? 0 : this.symbolIndex;
     loadingSymbols.textContent = this.symbolsSeq[this.symbolIndex];
-    this.timeout = setTimeout(() => this.startLoadingAnimation(), 50);
+    this.timeout = setTimeout(() => this.startLoadingAnimation(), FIFTY_MILLISECONDS);
   }
 
   stopLoadingAnimation() {

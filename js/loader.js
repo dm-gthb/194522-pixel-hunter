@@ -7,9 +7,9 @@ const APP_ID = 30653981907824;
 const checkStatus = (response) => {
   if (response.status >= STATUS_OK && response.status < STATUS_MULTIPLE_CHOICE) {
     return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
   }
+
+  throw new Error(`${response.status}: ${response.statusText}`);
 };
 
 export default class Loader {

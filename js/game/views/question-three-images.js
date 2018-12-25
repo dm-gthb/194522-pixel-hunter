@@ -2,6 +2,7 @@ import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
 import {resizeImage} from '../utils.js';
+import {AnswerOption} from '../../data/game-data.js';
 
 export default class QuestionThreeImagesView extends AbstractView {
   constructor(question, answers, questionsQuantity) {
@@ -19,7 +20,7 @@ export default class QuestionThreeImagesView extends AbstractView {
     ${this.question.answers.map((answer, i) =>
     `<div class="game__option">
     ${resizeImage(answer.image, i)}
-    <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}" ${debug.enable && answer.type === `painting` ? debug.styleRight : ``}></div>`).join(``)}
+    <img src="${answer.image.url}" alt="Option ${i + 1}" width="${answer.image.width}" height="${answer.image.height}" ${debug.enable && answer.type === AnswerOption.PAINTING ? debug.styleRight : ``}></div>`).join(``)}
     </form>
     ${resultsChart}
 </section>`;
@@ -31,7 +32,7 @@ export default class QuestionThreeImagesView extends AbstractView {
     const options = Array.from(this.element.querySelectorAll(`.game__option img`));
     options.forEach((option, i) => {
       option.addEventListener(`click`, () => {
-        let isAnswerRight = this.question.answers[i].type === `painting`;
+        const isAnswerRight = this.question.answers[i].type === AnswerOption.PAINTING;
         this.onAnswer(isAnswerRight);
       });
     });
