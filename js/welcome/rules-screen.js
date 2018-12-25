@@ -43,7 +43,7 @@ export default class RulesScreen extends AbstractView {
     const backButtonElement = this.element.querySelector(`.back`);
 
     formElement.addEventListener(`input`, () => {
-      nextScreenButtonElement.disabled = inputElement.value.length > 0 ? false : true;
+      nextScreenButtonElement.disabled = inputElement.value.length <= 0;
     });
 
     formElement.addEventListener(`submit`, (evt) => {

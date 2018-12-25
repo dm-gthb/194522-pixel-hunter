@@ -1,4 +1,7 @@
 import AbstractView from '../../abstract-view.js';
+import {INIT_GAME} from '../../data/enum.js';
+
+const HALF_A_SECOND = 500;
 
 export default class HeaderView extends AbstractView {
   constructor(state) {
@@ -19,7 +22,7 @@ export default class HeaderView extends AbstractView {
   </button>
   <div class="game__timer">${this.state.time}</div>
   <div class="game__lives">
-    ${new Array(3 - this.state.lifes)
+    ${new Array(INIT_GAME.lifes - this.state.lifes)
       .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
       .join(``)}
     ${new Array(this.state.lifes)
@@ -39,7 +42,7 @@ export default class HeaderView extends AbstractView {
     timeDisplay.style.opacity = 0;
     setTimeout(() => {
       timeDisplay.style.opacity = 1;
-    }, 500);
+    }, HALF_A_SECOND);
   }
 
   onBackButtonClick() {}
