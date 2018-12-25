@@ -2,7 +2,7 @@ import AbstractView from '../../abstract-view.js';
 import QuestionOneImageView from './question-one-image.js';
 import QuestionTwoImagesView from './question-two-images.js';
 import QuestionThreeImagesView from './question-three-images.js';
-import {QuestionType} from '../../data/game-data.js';
+import {QuestionType} from '../../data/enum.js';
 
 export default class QuestionView extends AbstractView {
   constructor(question, answers, questionsQuantity) {

@@ -1,10 +1,11 @@
 import resultsChartTemplate from '../../results-chart-template.js';
 import {countPoints} from '../../game/utils.js';
-import {ResultType} from '../../data/game-data.js';
+import {ResultType} from '../../data/enum.js';
 
 const ERRORS_TO_FAIL = 4;
+const DEFAULT_INDEX = `1`;
 
-const resultTableTemplate = (answers, lifes, questionsQuantity, index = `1`) => {
+const resultTableTemplate = (answers, lifes, questionsQuantity, index = DEFAULT_INDEX) => {
   const rightAnswers = answers.filter((answer) => answer !== ResultType.WRONG);
   const isWin = rightAnswers.length > (questionsQuantity - ERRORS_TO_FAIL);
   const resultsChart = resultsChartTemplate(answers, questionsQuantity);

@@ -1,5 +1,5 @@
 import AbstractView from '../../abstract-view.js';
-import {INIT_GAME} from '../../data/game-data.js';
+import {INIT_GAME} from '../../data/enum.js';
 
 const HALF_A_SECOND = 500;
 

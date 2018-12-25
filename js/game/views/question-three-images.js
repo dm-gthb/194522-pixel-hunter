@@ -2,7 +2,7 @@ import AbstractView from '../../abstract-view.js';
 import resultsChartTemplate from '../../results-chart-template.js';
 import {debug} from '../../settings.js';
 import {resizeImage} from '../utils.js';
-import {AnswerOption} from '../../data/game-data.js';
+import {AnswerOption} from '../../data/enum.js';
 
 export default class QuestionThreeImagesView extends AbstractView {
   constructor(question, answers, questionsQuantity) {

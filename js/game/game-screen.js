@@ -2,9 +2,10 @@ import HeaderView from './views/header.js';
 import QuestionView from './views/question.js';
 import ConfirmView from './views/confirm.js';
 import Router from '../router.js';
-import {ResultType} from '../data/game-data.js';
+import {ResultType} from '../data/enum.js';
 
 const ONE_SECOND = 1000;
+
 const RestSeconds = {
   VERY_FEW: 5,
   FEW: 10,

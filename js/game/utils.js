@@ -1,4 +1,4 @@
-import {ResultType} from '../data/game-data.js';
+import {ResultType} from '../data/enum.js';
 
 const RIGHT_ANSWER_POINTS = 100;
 const REST_LIFE_POINTS = 50;

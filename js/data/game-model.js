@@ -1,4 +1,4 @@
-import {INIT_GAME} from './game-data.js';
+import {INIT_GAME} from './enum.js';
 import {changeQuestion} from '../game/utils.js';
 import {tick} from '../game/utils.js';
 import {reduceLifes} from '../game/utils.js';
